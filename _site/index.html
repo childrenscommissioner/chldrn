@@ -1,0 +1,474 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WCM57W6');</script>
+<!-- End Google Tag Manager -->
+
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.childrenscommissioner.gov.uk/wp-content/themes/childrenscomissioner/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.childrenscommissioner.gov.uk/wp-content/themes/childrenscommissioner/assets/css/fonts.css">
+    <link rel="stylesheet" href="https://www.childrenscommissioner.gov.uk/wp-content/themes/childrenscommissioner/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://www.childrenscommissioner.gov.uk/wp-content/themes/childrenscommissioner/assets/css/hover.css">
+
+    <link rel="stylesheet" href="https://www.childrenscommissioner.gov.uk/wp-content/themes/childrenscommissioner/assets/css/main.css">
+    <link rel="stylesheet" href="https://www.childrenscommissioner.gov.uk/wp-content/themes/childrenscommissioner/style.css">
+
+<link rel="icon" href="https://www.childrenscommissioner.gov.uk/wp-content/uploads/2017/06/favicon-150x150.png" sizes="32x32" />
+<link rel="icon" href="https://www.childrenscommissioner.gov.uk/wp-content/uploads/2017/06/favicon.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.childrenscommissioner.gov.uk/wp-content/uploads/2017/06/favicon.png" />
+<meta name="msapplication-TileImage" content="https://www.childrenscommissioner.gov.uk/wp-content/uploads/2017/06/favicon.png" />
+
+
+
+  <meta name="author" content="Tom Clarke - Head of Data science" />
+  <title>Technical note - Reprojecting published indicators of child vulnerability to different aggregate geographies</title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WCM57W6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <body class="page-template-default page page-id-83 page-child parent-pageid-4">
+    
+    <div class="topbar bg-white hidden-sm hidden-xs">
+        <div class="container text-right">
+            <span class="m-r-sm" style="color: #494850 !important; font-size: 15px; font-weight: 400;">Follow us</span>
+      <div class="icons hvr-grow">
+        <a href="https://twitter.com/ChildrensComm" target="_blank">
+          <img src="https://www.childrenscommissioner.gov.uk/wp-content/themes/childrenscommissioner/assets/img/icons/twitter.svg" alt="Twitter" />
+        </a>
+      </div>
+      <div class="icons hvr-grow">
+        <a href="https://www.facebook.com/childrenscommissionersoffice" target="_blank">
+          <img src="https://www.childrenscommissioner.gov.uk/wp-content/themes/childrenscommissioner/assets/img/icons/facebook.svg" alt="Facebook" />
+        </a>
+      </div>
+      <div class="icons hvr-grow">
+        <a href="https://www.youtube.com/channel/UCriFe51AU_RomWvSzZxCgfA" target="_blank">
+          <img src="https://www.childrenscommissioner.gov.uk/wp-content/themes/childrenscommissioner/assets/img/icons/youtube.svg" alt="YouTube" />
+        </a>
+      </div>
+      <div class="icons hvr-grow">
+        <a href="https://www.linkedin.com/company/the-office-of-the-children%27s-commissioner" target="_blank">
+          <img src="https://www.childrenscommissioner.gov.uk/wp-content/themes/childrenscommissioner/assets/img/icons/linkedin.svg" alt="LinkedIn" />
+        </a>
+      </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-inverse bg-grey" role="navigation" id="mainnav">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="https://www.childrenscommissioner.gov.uk" class="navbar-brand"><img src="https://www.childrenscommissioner.gov.uk/wp-content/themes/childrenscommissioner/assets/img/LOGOCC.png" alt="Children&#039;s Commissioner for England"></a>
+            </div>
+
+            <div id="navbar" class="navbar-collapse collapse">
+
+<ul id="menu-main-menu" class="nav navbar-nav">
+<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-107" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-107"><a title="Publications" href="https://www.childrenscommissioner.gov.uk/"><< Back to main site</a></li>
+</ul>
+                </div>
+
+     </div>
+        </div>
+    </nav>
+
+<div class="container-fluid">
+
+    <div class="row bg-white p-t-lg p-b-lg">
+        <div class="container">
+            <div class="row">
+          
+                         
+        <div class="col-lg-12 col-md-push-1 col-lg-push-0 col-md-10">
+                  <h1 class="m-r-md" style="line-height: 38px;">Technical note - Reprojecting published indicators of child vulnerability to different aggregate geographies</h1>
+              </div>
+                            
+              		              <div class="col-lg-12 col-md-10 col-md-push-1 col-lg-push-0">
+                  <div class="m-t-md text-22 text-semi-dark text-semi-light" style="font-style:italic;">Author: Tom Clarke - Head of Data science</div>
+              </div>
+                          </div>
+        </div>
+    </div>
+
+       
+    
+    <div class="row m-t-lg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-lg-push-1 col-md-7 col-md-push-1" style="width: 830px;">
+
+                                        <div class="span12">
+                                        <div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This paper provides full methodological detail on the approach used to create estimates of the various indicators of childhood vulnerability included in the Children’s Commissioner’s Office’s <a href="https://www.childrenscommissioner.gov.uk/chldrn">CHLDRN</a> web application. This approach has been applied to indicators where it is not possible to directly calculate the numbers of relevant children either from available microdata such as the National Pupil Database or by combining published aggregate statistics.</p>
+<p>We first present an overview of the methodology for creating these estimates and then demonstrate an example of this method applied to children in households claiming universal credit. Finally, as validation of the methodology we present a comparison of our predicted numbers of households with children claiming universal credit at parliamentary constituency level against published figures available from the Department for Work and Pensions <a href="https://stat-xplore.dwp.gov.uk/webapi/jsf/login.xhtml">StatXplore</a>.</p>
+</div>
+<div id="overview-of-reprojection-methodology" class="section level2">
+<h2>Overview of reprojection methodology</h2>
+<div id="basic-premise" class="section level3">
+<h3>Basic premise</h3>
+<p>This methodology borrows heavily from the technique of Dasymmetric Mapping, commonly used in GIS applications (see for example <a href="https://www.tandfonline.com/doi/abs/10.1111/0033-0124.10042?journalCode=rtpg20">Ennis 2003</a>). Its aim is to allow us to reproject data from one aggregate area (our input geography) to another aggregate are (our output geography) where this is not directly possible from published statistics or available microdata.</p>
+<p>The key idea behind our approach is to partition counts of a particular indicator of interest only available at a large aggregate area input geography (such as a county council) down to lower super output areas (LSOAs) and then reaggregate these smaller unit estimates up to the desired output geography such as Clinical Commissioning Group or Parliamentary Constituency. The proportion of our indicator of interest assigned to each LSOA is weighted based on population and rates of factors that are correlated with our indicator of interest and are available at both our higher level geography and at LSOA level.</p>
+</div>
+<div id="creating-lsoa-mappings-to-output-geographies" class="section level3">
+<h3>Creating LSOA mappings to output geographies</h3>
+<p>As stated above the effective building blocks of our output geography estimates are lower super output areas. These are geographic units derived for the 2011 Census aiming to have reasonably similar numbers of households per LSOA. They are also deliberately co-terminus with a wide variety of other administrative geographies. Where these are not directly co-terminus (as with parliamentary constituencies), for the small number of LSOAs that fall into more than one constituency, we have assigned each LSOA to the output geography that it most overlaps. For context only 7% of LSOAs fall into more than one parliamentary constituency in England and amongst those that do only 100 (0.03%) overlap another constituency (other than its majority one) by more than 5% of its area.</p>
+</div>
+<div id="detailed-estimation-methodology" class="section level3">
+<h3>Detailed estimation methodology</h3>
+<p>To reproject a given indicator of levels of childhood vulnerability (hereafter our ‘outcome indicator’) that is published at a given input geography to a different output geography, we utilise the following method:</p>
+<ol style="list-style-type: decimal">
+<li><p>Can the published aggregate input geography be aggregated up to directly estimate a desired output geography? If so we use this aggregation as our output geography estimate. For example indicators that are published at local authority district level can be directly aggregated to produce indicators at Upper Tier Local Authority level as these geographies are co-terminus.</p></li>
+<li><p>If not, aggregate all predictor measures listed in Appendix A (hereafter ‘predictors’) up to our input geography level and calculate rates by the relevant population denominator. we then estimate which (if any) of these predictor rates are significant correlates of our indicator of interest at this input geography level via univariate correlation tests. Given the large number of tests and the related risk of correlations only being due to random chance, we apply a Bonferroni correction to our correlations and retain only the predictors with a p value of less than 1/number of tests performed.</p></li>
+<li><p>To reduce the number of variables down to a manageable level and avoid having too many variables in our predictive model, we perform principal components on the set of predictors retained in step 2. We then correlate each of the estimated components with our ‘outcome indicator’ and retain only components with a significant correlation to our outcome of interest (again with p values corrected for the number of components tested).</p></li>
+<li><p>We then estimate a Poisson regression model with a population offset term to estimate the multivariate relationship between our retained components and rates of our outcome indicator at our input geography (hereafter our ‘prediction model’). We estimate the D-squared statistic (<a href="https://www.sciencedirect.com/science/article/abs/pii/S0304380000003549">Guissan &amp; Zimmerman 2000</a>) for this model demonstrating the proportion of deviance from the null model that is accounted for by our prediction model. This D-squared statistic forms the basis for our RAG rating used with the CHLDRN app, with estimate reliability accounted for by the proportion of deviance explained by our prediction model. The specific thresholds for each RAG rating are set out in Table 1 below.</p></li>
+</ol>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+RAG rating
+</th>
+<th style="text-align:left;">
+D-squared statistic threshold
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Poor
+</td>
+<td style="text-align:left;">
+No predictors found to be correlated - estimates are simple pro-rata
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low
+</td>
+<td style="text-align:left;">
+Less than 0.33
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Medium
+</td>
+<td style="text-align:left;">
+0.33-0.66
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+0.66+
+</td>
+</tr>
+</tbody>
+</table>
+<ol start="5" style="list-style-type: decimal">
+<li><p>We then calculate the same rates as in step 2 at LSOA level. We smooth these rates via the same shrinkage method as used in the indices for multiple deprivation (see <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/833951/IoD2019_Technical_Report.pdf">Mclennan et al 2019</a> for details). This smoothing is to avoid apportioning too much of a large local authority’s value to smaller population LSOAs who’s rates are likely to fluctuate simply due to their smaller numbers of children/people in these areas. We apply this smoothing to all predictors except those sourced from the indices of multiple deprivation which have already been smoothed in this manner.</p></li>
+<li><p>From these smoothed rates, we then calculate component scores for each LSOA using the loadings calculated in step 3. We then apply our estimated prediction model from step 4 to these component scores to calculate a predicted rate on our outcome indicator for each LSOA. From this predicted rate we then calculate a predicted number of children through multiplying by the relevant population denominator (hereafter our ‘predicted LSOA populations’).</p></li>
+<li><p>Within each unit of our input geography, we sum the corresponding predicted LSOA populations to calculate a total predicted population for each unit of input geography. We then divide each LSOA’s predicted population by the corresponding total population to estimate the proportion of the input geography unit’s outcome indicator total that is accounted for by each LSOA within an input geography unit.</p></li>
+<li><p>We then apply these proportions to the published input geography totals to calculate an estimated number on our outcome indicator for each LSOA. We then sum these estimated LSOA totals to their corresponding output geography units to produce our final estimates.</p></li>
+</ol>
+</div>
+</div>
+<div id="validation-households-with-children-claiming-universal-credit" class="section level2">
+<h2>Validation: Households with children claiming universal credit</h2>
+<p>Data on households with children claiming universal credit are available both at local authority district level and for parliamentary constituencies via the Department for Work and Pensions (DWP) <a href="https://stat-xplore.dwp.gov.uk/">StatXplore tool</a>. As initial validation of this methodology we apply the steps above to the LA district level published figures for this outcome indicator and reproject these to parliamentary constituency level. We compare the results to published totals below.</p>
+<p>Overall there is a high level of agreement between estimated counts and those published by DWP, suggesting that overall these provide good approximations on this indicator. The mean difference between estimated counts and actual counts is +1.8% with a median of &lt;0.05%. 80% of constituencies are within 10% of their published totals. However, there is some variation in accuracy, for example there are 37 out of the 533 constituencies that are more than 20% above their published totals (Figure 1). This suggests, while these estimates provide a useful starting point, this approach is not a direct replacement for collecting more granular data and/or published data at varying geographic levels.</p>
+<p><strong>Figure 1: Percentage difference between estimated and actual counts of households witch children claiming universal credit by parliamentary constituency</strong></p>
+<p><img src="C:/Users/TCLARKE1/OneDrive%20-%20Department%20for%20Education/Documents/Ad%20hoc/Covid/web_app/Admin%20and%20Presentations/pred_hist2.png" width="6" height="6" /></p>
+</div>
+<div id="appendix-a-lsoa-level-variables-used-as-predictors" class="section level2">
+<h2>Appendix A: LSOA level variables used as predictors</h2>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+LSOA level predictor
+</th>
+<th style="text-align:left;">
+Source
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Children attending PRUs
+</td>
+<td style="text-align:left;">
+Spring term Pupil Census 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pupils with english as an additional language
+</td>
+<td style="text-align:left;">
+Spring term Pupil Census 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pupils by ethnicity category
+</td>
+<td style="text-align:left;">
+Spring term Pupil Census 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pupils eligible for free school meals
+</td>
+<td style="text-align:left;">
+Spring term Pupil Census 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pupils by primary SEN category
+</td>
+<td style="text-align:left;">
+Spring term Pupil Census 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pupils by pupil premium funding category
+</td>
+<td style="text-align:left;">
+Spring term Pupil Census 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pupils by SEN category (SEN support/EHC plans)
+</td>
+<td style="text-align:left;">
+Spring term Pupil Census 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSOA income deprivation domain
+</td>
+<td style="text-align:left;">
+IMD 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSOA employment deprivation domain
+</td>
+<td style="text-align:left;">
+IMD 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSOA education deprivation domain
+</td>
+<td style="text-align:left;">
+IMD 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSOA health deprivation domain
+</td>
+<td style="text-align:left;">
+IMD 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSOA crime deprivation domain
+</td>
+<td style="text-align:left;">
+IMD 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSOA Barriers to Housing and Services domain
+</td>
+<td style="text-align:left;">
+IMD 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSOA Living Environment Deprivation Domain
+</td>
+<td style="text-align:left;">
+IMD 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSOA Income deprivation affecting children
+</td>
+<td style="text-align:left;">
+IMD 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSOA Income deprivation affecting older people
+</td>
+<td style="text-align:left;">
+IMD 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pupils that are persistently absent
+</td>
+<td style="text-align:left;">
+Spring term Pupil Census 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pupils with any fixed term exclusions
+</td>
+<td style="text-align:left;">
+Spring term Pupil Census 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pupils with any permanent exclusions
+</td>
+<td style="text-align:left;">
+Spring term Pupil Census 2020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Children aged 0-5
+</td>
+<td style="text-align:left;">
+ONS LSOA population estimates 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Children aged 5-11
+</td>
+<td style="text-align:left;">
+ONS LSOA population estimates 2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Adults by amount their day to day activities are limited
+</td>
+<td style="text-align:left;">
+Census 2011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Working age adults by amount their day to day activities are limited
+</td>
+<td style="text-align:left;">
+Census 2011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Adults by subjective health status
+</td>
+<td style="text-align:left;">
+Census 2011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Adults by amount of unpaid care provided each week
+</td>
+<td style="text-align:left;">
+Census 2011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Households by household composition type
+</td>
+<td style="text-align:left;">
+Census 2011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Households by housing tenure
+</td>
+<td style="text-align:left;">
+Census 2011
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+                          
+                    </div>
+              </div>
+            </div>
+
+        </div>
+   </div>     
+        
+<footer class="m-t-xl">
+      
+
+      <div class="bg-dark p-t-lg p-b-md">
+        <div class="container m-t-md">
+          <div class="col-md-3 col-md-push-4 col-xs-10 col-xs-push-1 col-sm-push-2 m-b-lg text-center-sm text-center-xs">
+
+          </div>
+
+          <div class="clearfix visible-sm visible-xs"></div>
+
+          <div class="col-md-4 col-md-pull-3 m-b-lg text-center-sm">
+
+          </div>
+
+          <div class="col-md-4 col-md-push-1 text-right text-center-sm text-center-xs">
+            <div>
+              <a href="https://www.childrenscommissioner.gov.uk">
+                <img src="https://www.childrenscommissioner.gov.uk/wp-content/themes/childrenscommissioner/assets/img/LOGOCC.png" alt="Children&#039;s Commissioner for England" class="footerlogo inline-block img-responsive m-b-md">
+              </a>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="text-white text-16">&copy;2019 The Children's Commissioner's Office</div>
+          </div>
+
+          <div class="clear clearfix"></div>
+        </div>
+      </div>
+    </footer>
+
+</body>
+</html>
