@@ -73,7 +73,7 @@ Overall there is a high level of agreement between estimated counts and those pu
 
 **Figure 1: Percentage difference between estimated and actual counts of households witch children claiming universal credit by parliamentary constituency**
 
-```{r}
+```{r, out.width="100%"}
 
 knitr::include_graphics("pred_hist2.png")
 
